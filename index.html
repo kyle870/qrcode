@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/@chfritsch/qrcode.styling"></script>
+
+    <title>Custom QR Code</title>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <div id="div-imagen" class="contorno">
+            <!-- <img class="logo_ucn" src="logo.svg" alt="logo_ucn"> -->
+            <canvas id="qrcode-canvas"></canvas>
+        </div>
+        <h2>QR Code personalizado UCN</h2>
+        <label for="text">URL del elemento a redirigir:</label>
+        <form id="form-generar" action="" >
+            <input type="text" id="text" name="text" value="https://www.ucn.edu.ni/">
+            <input type="button" class="btn btn-primary" value="Generar y Descargar QR" onclick="saveDivAsImage(document.getElementById('text').value)"/>
+        </form>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script>
+
+        async function saveDivAsImage(qrcode) {
+            const content = document.getElementById('div-imagen');
+            
+            // Generate content on the canvas
+            const data_canvas = await generateQRCode(qrcode, './logo.svg', '#154d31', '#FFFFFF', 512, 4);
+            
+            try {
+                // Use html2canvas to capture the div as an image
+                const canvas = await html2canvas(content);
+
+                // Convert the canvas to a data URL
+                const imgData = canvas.toDataURL('image/png');
+
+                // Create a temporary link element
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = 'div-image.png';
+                
+                // Append the link to the body and trigger the download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (error) {
+                console.error('Error capturing div as image:', error);
+            }
+        }
+
+        function setCanvasResolution(canvas, width, height) {
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.arcTo(x + width, y, x + width, y + height, radius);
+            ctx.arcTo(x + width, y + height, x, y + height, radius);
+            ctx.arcTo(x, y + height, x, y, radius);
+            ctx.arcTo(x, y, x + width, y, radius);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function generateQRCode(text, logoSrc, fgColor = '#000000', bgColor = '#ffffff', canvasSize = 256, cornerRadius = 2) {
+            const qr = qrcode(0, 'H');
+            qr.addData(text);
+            qr.make();
+
+            const canvas = document.getElementById('qrcode-canvas');
+            setCanvasResolution(canvas, canvasSize, canvasSize);
+            const ctx = canvas.getContext('2d');
+            const tileW = canvas.width  / qr.getModuleCount();
+            const tileH = canvas.height / qr.getModuleCount();
+
+            // Draw background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw QR code
+            for (let row = 0; row < qr.getModuleCount(); row++) {
+                for (let col = 0; col < qr.getModuleCount(); col++) {
+                    ctx.fillStyle = qr.isDark(row, col) ? fgColor : bgColor;
+                    if (qr.isDark(row, col)) {
+                        drawRoundedRect(ctx, col * tileW, row * tileH, tileW, tileH, cornerRadius);
+                    }
+                }
+            }
+
+            // Draw logo
+            const logo = new Image();
+            logo.src = logoSrc;
+            logo.onload = () => {
+                const logoSize = canvas.width * 0.4; // ajustar el tamaño del logo, es recomebdable que sea el 40% del tamaño del canvas
+                const logoX = (canvas.width - logoSize) / 2;
+                const logoY = (canvas.height - logoSize) / 2;
+                ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
+            };
+
+            window.onload = function() {
+                document.getElementById('qrcode-canvas').style.display = 'block';
+            };
+
+        }
+        // Example usage:
+        //generateQRCode('https://www.ucn.edu.ni/', 'https://www.ucn.edu.ni/wp-content/uploads/2017/06/logo.png', '#154d31', '#FFFFFF', 512, 4);
+    </script>
+</body>
+</html>
