@@ -73,3 +73,26 @@ canvas{
     background-color: #fff;
     /* border-radius: 2rem; */
 }
+
+/* Phone Styles */
+@media screen and (max-width: 600px) {
+    .contenedor-principal{
+        padding: 1rem;
+    }
+    #form-generar{
+        flex-direction: column;
+    }
+    .contorno{
+        padding: 1rem;
+    }
+    input[type="text"]{
+        width: 100%;
+    }
+    .btn{
+        margin: 1rem 0;
+    }
+
+    canvas{
+        width: 100%; /* Make canvas fill the container */
+    }
+}

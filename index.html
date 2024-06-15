@@ -24,7 +24,8 @@
             <label for="text">Inserte URL</label>
             <input type="text" id="text" name="text" value="https://www.ucn.edu.ni/">
             <input type="button" class="btn btn-primary" value="Generar QR" onclick="generateQRCode(document.getElementById('text').value, './assets/logo.svg', '#154d31', '#FFFFFF', 512, 4)"/>
-            <input type="button" class="btn btn-primary" value="Descargar QR" onclick="takeScreenshotAndConvertToSVG()"/>
+            <input type="button" class="btn btn-primary" value="Descargar SVG" onclick="takeScreenshotAndConvertToSVG()"/>
+            <input type="button" class="btn btn-primary" value="Descargar PNG" onclick="takeScreenshot()"/>
         </form>
 
     </div>

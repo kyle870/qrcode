@@ -1,7 +1,6 @@
 
 async function takeScreenshot() {
     const canvas_item = await html2canvas(document.getElementById('div-imagen'),{backgroundColor: null});
-    //document.body.appendChild(canvas_item);
 
     //canvas to data url
     const imgData = canvas_item.toDataURL('image/png');
@@ -58,8 +57,8 @@ async function takeScreenshotAndConvertToSVG() {
 function setCanvasResolution(canvas, width, height) {
     canvas.width = width;
     canvas.height = height;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+    canvas.style.width = window.screen.width; //set width to full screen
+    // canvas.style.height = height + 'px';
 }
 
 //*Funcion para dibujar un rectangulo redondeado
@@ -82,7 +81,7 @@ function generateQRCode(text, logoSrc, fgColor = '#000000', bgColor = '#ffffff',
 
     const canvas = document.getElementById('qrcode-canvas');
     setCanvasResolution(canvas, canvasSize, canvasSize);
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', {willReadFrequently: true});
     const tileW = canvas.width  / qr.getModuleCount();
     const tileH = canvas.height / qr.getModuleCount();
 
