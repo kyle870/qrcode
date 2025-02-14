@@ -27,16 +27,25 @@
                 <div id="div-imagen" class="canvas-intermediate">
                     <canvas id="qrcode-canvas"></canvas>
                 </div>
-                <div id="div-descarga">
-                    <h4>Descargar en:</h4>
-                    <form id="form-generar" action="" >
-                        <button type="button" class="btn btn-primary" onclick="takeScreenshotAndConvertToSVG()">
-                            Formato SVG
+                <div class="funciones">
+                    <div class="div-items">
+                        <h4>Descargar en:</h4>
+                        <form id="form-generar" action="" >
+                            <button type="button" class="btn btn-primary" onclick="takeScreenshotAndConvertToSVG()">
+                                Formato SVG
+                            </button>
+                            <button type="button" class="btn btn-primary" value="Formato PNG" onclick="takeScreenshot()">
+                                Formato PNG
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="div-items">
+                        <h4>Funcionalidades:</h4>
+                        <button type="button" class="btn btn-primary" value="Formato PNG" onclick="wificonnection()">
+                            QR para WIFI UCN
                         </button>
-                        <button type="button" class="btn btn-primary" value="Formato PNG" onclick="takeScreenshot()">
-                            Formato PNG
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

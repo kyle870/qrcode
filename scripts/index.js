@@ -74,8 +74,11 @@ function drawRoundedRect(ctx, x, y, width, height, radius) {
 }
 
 //*Funcion para generar un QR con logo
-function generateQRCode(text, logoSrc, fgColor = '#000000', bgColor = '#ffffff', canvasSize = 256, cornerRadius = 2) {
+function generateQRCode(text, logoSrc, fgColor = '#000000', bgColor = '#ffffff', canvasSize = 256, cornerRadius = 2, isWiFi = false, ssid = '', password = '') {
     const qr = qrcode(0, 'H');
+    if (isWiFi) {
+        text = `WIFI:T:WPA;S:${ssid};P:${password};;`;
+    }
     qr.addData(text);
     qr.make();
 
@@ -116,5 +119,12 @@ function generateQRCode(text, logoSrc, fgColor = '#000000', bgColor = '#ffffff',
     window.onload = function() {
         document.getElementById('qrcode-canvas').style.display = 'block';
     };
+
+}
+
+function wificonnection(){
+    const ssid = '';
+    const password = '';
+    generateQRCode('', './assets/logo_border.png', '#154d31', '#FFFFFF', 512, 4, true, ssid, password);
 
 }
