@@ -10,24 +10,38 @@
     <script src="https://unpkg.com/@chfritsch/qrcode.styling"></script>
     <script src="./scripts/index.js"></script>
     <script src="./libs/qrcode.min.js"></script>
-    <title>Custom QR Code</title>
+    <title>Generador QR - UCN</title>
 </head>
 <body>
-    <div class="contenedor-principal">
-        <div id="div-imagen" class="contorno">
-            <div class="canvas-intermediate">
-                <canvas id="qrcode-canvas"></canvas>
+    <div class="container-global">
+        <div id="descripcion">
+            <label for="text">Agregue un enlace de internet para generar el código QR</label>
+            <div id="contenedor-input">
+                <input type="text" id="text" name="text" placeholder="ej: https://www.ucn.edu.ni/">
+                <input type="button" class="btn btn-primary" value="Generar QR" onclick="generateQRCode(document.getElementById('text').value, './assets/logo_border.png', '#154d31', '#FFFFFF', 512, 4)"/>
             </div>
         </div>
-        <h2>Código QR personalizado - UCN</h2>
-        <form id="form-generar" action="" >
-            <label for="text">Ingrese URL</label>
-            <input type="text" id="text" name="text" value="https://www.ucn.edu.ni/">
-            <input type="button" class="btn btn-primary" value="Generar QR" onclick="generateQRCode(document.getElementById('text').value, './assets/logo_border.png', '#154d31', '#FFFFFF', 512, 4)"/>
-            <input type="button" class="btn btn-primary" value="Descargar SVG" onclick="takeScreenshotAndConvertToSVG()"/>
-            <input type="button" class="btn btn-primary" value="Descargar PNG" onclick="takeScreenshot()"/>
-        </form>
-
+        <div class="contenedor-principal">
+            <div id="contenedor-items">
+                <div id="div-imagen" class="canvas-intermediate">
+                    <canvas id="qrcode-canvas"></canvas>
+                </div>
+                <div id="div-descarga">
+                    <h4>Descargar en:</h4>
+                    <form id="form-generar" action="" >
+                        <button type="button" class="btn btn-primary" onclick="takeScreenshotAndConvertToSVG()">
+                            Formato SVG
+                        </button>
+                        <button type="button" class="btn btn-primary" value="Formato PNG" onclick="takeScreenshot()">
+                            Formato PNG
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <p>Universidad Central de Nicaragua - Unidad de Formación Virtual (2025)</p>
+        </div>
     </div>
 </body>
 </html>
