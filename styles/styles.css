@@ -1,17 +1,19 @@
 body{
-    background-image: url('./assets/background.svg');
-    background-size: cover;
-    background-color: #b9b9b9;
-    margin: 0;
-    padding: 0;
+    background-image: url('../assets/confetti-doodles.svg');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
 }
     
 .contenedor-principal{
     display: flex;
-    /* padding: 5rem; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
 #form-generar{
@@ -22,7 +24,6 @@ body{
 }
 
 .contorno{
-    border: 1rem solid #03330f;
     display: flex;
     width: fit-content;
     height: fit-content;
@@ -32,6 +33,7 @@ body{
 }
 
 .canvas-intermediate{
+    border: 10px solid #03330f;
     background-color: #fff;
     padding: 2rem;
     border-radius: 2rem;

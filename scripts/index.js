@@ -109,22 +109,6 @@ function generateQRCode(text, logoSrc, fgColor = '#000000', bgColor = '#ffffff',
         const logoY = (canvas.height - logoSize) / 2;
         const radius = logoSize / 2 + 10; // Radius for the circle
 
-        // Draw white circle as background
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(logoX + radius - 10, logoY + radius - 10, radius, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fill();
-
-        // Set border properties
-        ctx.strokeStyle = '#ffffff'; // Change to desired border color
-        ctx.lineWidth = 10; // Adjust border width as needed
-        ctx.stroke(); // Draw the border
-    
-        // Clip to circle for drawing the logo
-        ctx.beginPath();
-        ctx.arc(logoX + radius - 10, logoY + radius - 10, radius, 0, Math.PI * 2, true);
-        ctx.clip();
         //draw logo
         ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
     };
